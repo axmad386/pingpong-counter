@@ -44,7 +44,7 @@ export const ButtonCount = ({
   };
   return (
     <div className={cn("h-30 flex relative flex-col items-center flex-grow gap-2", isGame?"border-yellow-600 border-2 rounded":"")}>
-      {isGame && <div className="text-yellow-600 absolute -top-6 bg-yellow-400 rounded-t px-3 text-white">Win</div>}
+      {isGame && <div className="absolute -top-6 bg-yellow-600 rounded-t px-3 text-white">WIN</div>}
       <button
         className="bg-primary-foreground rounded-lg h-20 w-full text-5xl font-sans"
         onClick={increment}

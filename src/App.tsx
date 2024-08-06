@@ -34,6 +34,7 @@ function App() {
 
 
   const resetData = () => {
+    window.confirm("Are you sure, all data will be reset?") &&
     setData(initialData);
   };
   const switchPosition = ()=>{
@@ -48,7 +49,7 @@ function App() {
     })
   }
   const resetScore=()=>{
-    window.confirm("Are you sure?") &&
+    window.confirm("Are you sure, score will be reset?") &&
     setData(prev=>{
       return {
         ...prev,
@@ -69,9 +70,9 @@ function App() {
       {teams.length < 2 && <FormAddTeam onSave={setData} />}
       {teams.length == 2 && (
         <div className="grid grid-cols-3 w-full container mx-auto p-6 text-center gap-y-6 ">
-          <div>{teams[teamPosition == "left-right" ? 0 : 1].name}</div>
-          <div>VS</div>
-          <div>{teams[teamPosition == "left-right" ? 1 : 0].name}</div>
+          <div className="text-3xl">{teams[teamPosition == "left-right" ? 0 : 1].name}</div>
+          <div className="text-2xl">VS</div>
+          <div className="text-3xl">{teams[teamPosition == "left-right" ? 1 : 0].name}</div>
 
           <ButtonCount index={teamPosition == "left-right" ? 0 : 1} data={data} onChange={setData}/>
           <div><Button className="mt-6" onClick={resetScore}>Reset Score</Button></div>
@@ -88,6 +89,9 @@ function App() {
       >
         <i className="iconify bx--reset h-10 w-10"></i>
       </button>
+      <a href="https://github.com/axmad386/pingpong-counter" className="fixed bottom-6 left-6 rounded-full" target="_blank">
+        <i className="iconify bx--bxl-github h-10 w-10"></i>
+      </a>
     </div>
   );
 }
