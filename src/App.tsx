@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Data } from "./types/data";
 import { FormAddTeam } from "./components/FormAddTeam";
 import { ButtonCount } from "./components/ButtonCount";
+import { Button } from "./components/ui/button";
 
 const initialData: Data = {
   teams: [],
@@ -9,7 +10,7 @@ const initialData: Data = {
     serveCount: 5,
     gamePoint: 21,
     teamPosition: "left-right"
-  }
+  },
 };
 
 function App() {
@@ -35,20 +36,49 @@ function App() {
   const resetData = () => {
     setData(initialData);
   };
-
-  const { teams = [] } = data! || {};
+  const switchPosition = ()=>{
+    setData(prev=>{
+      return {
+        ...prev,
+        config: {
+          ...prev.config,
+          teamPosition: prev.config.teamPosition == "left-right" ? "right-left" : "left-right"
+        }
+      }
+    })
+  }
+  const resetScore=()=>{
+    window.confirm("Are you sure?") &&
+    setData(prev=>{
+      return {
+        ...prev,
+        teams: prev.teams.map((team)=>{
+          return {
+            ...team,
+            currentScore: 0
+          }
+        })
+      }
+    })
+  }
+  const { teams = [], config: {
+    teamPosition
+  } } = data! || {};
   return (
-    <div className="bg-gray-800 min-h-svh w-full text-gray-100 flex flex-col items-center justify-center">
+    <div className="bg-gray-700 min-h-svh w-full text-gray-100 flex flex-col items-center justify-center dark">
       {teams.length < 2 && <FormAddTeam onSave={setData} />}
       {teams.length == 2 && (
         <div className="grid grid-cols-3 w-full container mx-auto p-6 text-center gap-y-6 ">
-          <div>{teams[0].name}</div>
+          <div>{teams[teamPosition == "left-right" ? 0 : 1].name}</div>
           <div>VS</div>
-          <div>{teams[1].name}</div>
+          <div>{teams[teamPosition == "left-right" ? 1 : 0].name}</div>
 
-          <ButtonCount index={0} teams={teams} onChange={setData}/>
+          <ButtonCount index={teamPosition == "left-right" ? 0 : 1} data={data} onChange={setData}/>
+          <div><Button className="mt-6" onClick={resetScore}>Reset Score</Button></div>
+          <ButtonCount index={teamPosition == "left-right" ? 1 : 0} data={data} onChange={setData} />
+
           <div></div>
-          <ButtonCount index={1} teams={teams} onChange={setData} />
+          <Button variant="outline" onClick={switchPosition}>Switch Position</Button>
         </div>
       )}
       <button

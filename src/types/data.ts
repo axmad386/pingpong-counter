@@ -7,5 +7,5 @@ export interface Data {
     serveCount: number;
     gamePoint: number;
     teamPosition: "left-right"|"right-left";
-  }
+  },
 }
