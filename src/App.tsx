@@ -1,35 +1,47 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useEffect, useState } from "react";
+import { Data } from "./types/data";
+import { FormAddTeam } from "./components/FormAddTeam";
+
+const initialData: Data = {
+  teams: [],
+};
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [data, setData] = useState<Data>();
 
+  useEffect(() => {
+    if (data) {
+      localStorage.setItem("data", JSON.stringify(data));
+    }
+  }, [data]);
+
+  useEffect(() => {
+    const data = localStorage.getItem("data");
+    if (data) {
+      setData(JSON.parse(data) || initialData);
+    }
+  }, []);
+
+  const resetData = () => {
+    setData(initialData);
+  };
+
+  const { teams = [] } = data! || {};
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <div className="bg-gray-800 min-h-svh w-full text-gray-100">
+      {teams.length < 2 && <FormAddTeam onSave={setData} />}
+      {teams.length == 2 && (
+        <div className="flex flex-row justify-evenly w-full">
+            <div>{teams[0].name}</div>
+            <div>VS</div>
+            <div>{teams[1].name}</div>
+        </div>
+      )}
+      <button onClick={resetData} className="fixed bottom-6 right-6 rounded-full" title='reset'>
+        <i className="iconify bx--reset h-10 w-10"></i>
+      </button>
+    </div>
+  );
 }
 
-export default App
+export default App;

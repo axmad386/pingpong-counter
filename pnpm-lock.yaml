@@ -15,6 +15,12 @@ importers:
         specifier: ^18.3.1
         version: 18.3.1(react@18.3.1)
     devDependencies:
+      '@iconify-json/bx':
+        specifier: ^1.1.11
+        version: 1.1.11
+      '@iconify/tailwind':
+        specifier: ^1.1.2
+        version: 1.1.2
       '@types/react':
         specifier: ^18.3.3
         version: 18.3.3
@@ -320,6 +326,15 @@ packages:
   '@humanwhocodes/object-schema@2.0.3':
     resolution: {integrity: sha512-93zYdMES/c1D69yZiKDBj0V24vqNzB/koF26KPaagAfd3P/4gUlh3Dys5ogAK+Exi9QyzlD8x/08Zt7wIKcDcA==}
     deprecated: Use @eslint/object-schema instead
+
+  '@iconify-json/bx@1.1.11':
+    resolution: {integrity: sha512-kK8wAKKURF3vannfh7FrsTOY44W+9qgngXSV5X+cr/pe6uUpOg1xAajHhNCO/W+/6JUYE2t+KRD2NFnkOoK7rQ==}
+
+  '@iconify/tailwind@1.1.2':
+    resolution: {integrity: sha512-ZgToKxxd7zF5T9NXPnY9APRF06ZjFF21H/bINzcbKTdeJzLrNLIoVaoePIUbWVQ2HAac5cAYEHPZO8ILSUe3bQ==}
+
+  '@iconify/types@2.0.0':
+    resolution: {integrity: sha512-+wluvCrRhXrhyOmRDJ3q8mux9JkKy5SJ/v8ol2tu4FVjyYvtEzkc/3pK15ET6RKg4b4w4BmTk1+gsCUhf21Ykg==}
 
   '@isaacs/cliui@8.0.2':
     resolution: {integrity: sha512-O8jcjabXaleOG9DQ0+ARXWZBTfnP4WNAqzuiJK7ll44AmxGKv/J2M4TPjxjY3znBCfvBXFzucm1twdyFybFqEA==}
@@ -1615,6 +1630,16 @@ snapshots:
   '@humanwhocodes/module-importer@1.0.1': {}
 
   '@humanwhocodes/object-schema@2.0.3': {}
+
+  '@iconify-json/bx@1.1.11':
+    dependencies:
+      '@iconify/types': 2.0.0
+
+  '@iconify/tailwind@1.1.2':
+    dependencies:
+      '@iconify/types': 2.0.0
+
+  '@iconify/types@2.0.0': {}
 
   '@isaacs/cliui@8.0.2':
     dependencies:
