@@ -12,7 +12,9 @@ export const ButtonCount = ({
   data: { teams, config },
   onChange,
 }: ButtonCountProps) => {
-  const isGame = teams[index].currentScore === config.gamePoint;
+  const otherTeam = teams.find((_, i) => i !== index)!;
+  const isDeuce = (teams[index].currentScore+otherTeam.currentScore) >= (config.gamePoint-1)*2 && otherTeam.currentScore == teams[index].currentScore
+  const isGame = teams[index].currentScore >= config.gamePoint? teams[index].currentScore-otherTeam.currentScore ==2 : teams[index].currentScore >= config.gamePoint
   const increment = () => {
     if (!isGame) {
       onChange((prev) => ({
@@ -42,9 +44,11 @@ export const ButtonCount = ({
       ],
     }));
   };
+
   return (
     <div className={cn("h-30 flex relative flex-col items-center flex-grow gap-2", isGame?"border-yellow-600 border-2 rounded":"")}>
-      {isGame && <div className="absolute -top-6 bg-yellow-600 rounded-t px-3 text-white">WIN</div>}
+      {isGame && <div className="absolute -top-6 bg-yellow-400 rounded-t px-3 text-white">Win</div>}
+      {isDeuce && <div className="absolute -top-6 bg-blue-400 rounded-t px-3 text-white">Deuce</div>}
       <button
         className="bg-primary-foreground rounded-lg h-20 w-full text-5xl font-sans"
         onClick={increment}
