@@ -14,7 +14,7 @@ export const ButtonCount = ({
 }: ButtonCountProps) => {
   const otherTeam = teams.find((_, i) => i !== index)!;
   const isDeuce = (teams[index].currentScore+otherTeam.currentScore) >= (config.gamePoint-1)*2 && otherTeam.currentScore == teams[index].currentScore
-  const isGame = teams[index].currentScore >= config.gamePoint? teams[index].currentScore-otherTeam.currentScore ==2 : teams[index].currentScore >= config.gamePoint
+  const isGame = teams[index].currentScore >= config.gamePoint? teams[index].currentScore-otherTeam.currentScore >=2 : teams[index].currentScore >= config.gamePoint
   const increment = () => {
     if (!isGame) {
       onChange((prev) => ({
